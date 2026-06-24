@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>耳机声道与频率测试 - 在线音频检测工具</title>
+<meta name="description" content="免费在线测试耳机左右声道与可听频率范围，校验音频设备是否正常。">
+<link rel="canonical" href="https://ishabamir.github.io/sodamusicapp-audio-test/">
+<meta property="og:title" content="耳机声道与频率测试 - 在线音频检测工具">
+<meta property="og:description" content="免费在线测试耳机左右声道与可听频率范围，校验音频设备是否正常。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ishabamir.github.io/sodamusicapp-audio-test/">
+<style>
+:root{--b:#1a73e8}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:760px;margin:0 auto;padding:24px;color:#1f2937;line-height:1.7;background:#fff}
+h1{color:var(--b);font-size:1.6rem;margin:.2em 0}
+h2{font-size:1.2rem;margin-top:1.6em;border-left:4px solid var(--b);padding-left:10px}
+.card{border:1px solid #e5e7eb;border-radius:10px;padding:18px;margin:16px 0;background:#fafafa}
+table{width:100%;border-collapse:collapse}
+td{padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top;word-break:break-all}
+td:first-child{color:#6b7280;width:38%}
+button{background:var(--b);color:#fff;border:0;border-radius:6px;padding:8px 14px;margin:4px 4px 4px 0;cursor:pointer;font-size:.95rem}
+button:hover{opacity:.9}
+input,textarea{width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;font-size:.95rem;margin:4px 0}
+input[type=range]{width:auto}
+code{background:#f3f4f6;padding:2px 6px;border-radius:4px}
+a{color:var(--b)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid #eee;color:#9ca3af;font-size:.85rem}
+</style>
+</head>
+<body>
+<h1>耳机声道与频率测试</h1>
+<p>播放左/右/双声道测试音，并可调节频率测试你的耳机与听力可听范围。建议佩戴耳机使用。</p>
+<div class="card">
+<p>左右声道与频率测试（请戴上耳机）：</p>
+<button onclick="play('left')">左声道</button>
+<button onclick="play('right')">右声道</button>
+<button onclick="play('both')">双声道</button>
+<p>频率：<input id="f" type="range" min="20" max="18000" value="440" oninput="document.getElementById('fv').textContent=this.value"> <span id="fv">440</span> Hz</p>
+<script>
+var ac;
+function play(ch){ac=ac||new(window.AudioContext||window.webkitAudioContext)();var osc=ac.createOscillator(),g=ac.createGain();osc.frequency.value=+document.getElementById('f').value;osc.connect(g);if(ac.createStereoPanner){var p=ac.createStereoPanner();p.pan.value=ch==='left'?-1:ch==='right'?1:0;g.connect(p);p.connect(ac.destination)}else{g.connect(ac.destination)}g.gain.value=0.12;osc.start();setTimeout(function(){osc.stop()},900)}
+</script>
+</div>
+<h2>关于汽水音乐</h2>
+<p>汽水音乐是一款主打个性推荐的音乐播放应用，海量曲库与高音质体验尽在 <a href="https://sodamusicapp.com/">汽水音乐官网</a>。</p>
+<footer>
+<p>本页为 汽水音乐 提供的免费在线小工具，数据均在本地浏览器处理，不上传服务器。</p>
+<p>官网：<a href="https://sodamusicapp.com/">sodamusicapp.com</a> · 最后更新：2026-06</p>
+</footer>
+</body>
+</html>
